@@ -56,10 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
         lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
     }
 
-    // Resume button dialog
+    // Resume button dialogs (both in Experience section and Contact section)
     const resumeBtn = document.getElementById('resumeBtn');
+    const resumeBtn2 = document.getElementById('resumeBtn2');
+    
     if (resumeBtn) {
         resumeBtn.addEventListener('click', () => {
+            alert('Please contact me for my resume. Thank you!');
+        });
+    }
+    
+    if (resumeBtn2) {
+        resumeBtn2.addEventListener('click', () => {
             alert('Please contact me for my resume. Thank you!');
         });
     }
