@@ -55,6 +55,68 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
     }
+
+    // Contact form submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const formStatus = document.getElementById('formStatus');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Show sending state
+            btnText.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            formStatus.className = 'form-status sending';
+            formStatus.textContent = 'Sending your message...';
+            
+            try {
+                // Using Web3Forms (free, no registration needed)
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        access_key: 'YOUR_WEB3FORMS_KEY', // We'll get this in a moment
+                        subject: 'Gould Website - New Contact Message',
+                        from_name: name,
+                        email: email,
+                        message: message,
+                        to: 'davidgouldproduct@gmail.com'
+                    })
+                });
+                
+                if (response.ok) {
+                    // Success!
+                    btnText.textContent = 'Sent!';
+                    formStatus.className = 'form-status success';
+                    formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                    contactForm.reset();
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        btnText.textContent = 'Send Message';
+                        submitBtn.disabled = false;
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                // Error - show mailto fallback
+                btnText.textContent = 'Send Message';
+                submitBtn.disabled = false;
+                formStatus.className = 'form-status error';
+                formStatus.innerHTML = `Unable to send. Please email me directly at <a href="mailto:davidgouldproduct@gmail.com?subject=Contact from Website&body=${encodeURIComponent(message)}" style="color: #ef4444; text-decoration: underline;">davidgouldproduct@gmail.com</a>`;
+            }
+        });
+    }
 });
 }
 
