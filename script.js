@@ -72,21 +72,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Contact form submission - show sending/sent state
+    // Contact form submission - AJAX to stay on page and show SENT
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent redirect
+            
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const formStatus = document.getElementById('formStatus');
+            const formData = new FormData(contactForm);
             
             // Show sending state
             btnText.textContent = 'Sending...';
             submitBtn.disabled = true;
             formStatus.className = 'form-status sending';
-            formStatus.textContent = 'Redirecting...';
+            formStatus.textContent = 'Sending your message...';
             
-            // Form will submit normally to FormSubmit
+            try {
+                // Submit to FormSubmit via AJAX
+                const response = await fetch('https://formsubmit.co/davidgouldproduct@gmail.com', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success!
+                    btnText.textContent = 'SENT ✓';
+                    formStatus.className = 'form-status success';
+                    formStatus.textContent = '✓ Message sent! I\'ll get back to you soon.';
+                    contactForm.reset();
+                    
+                    // Reset after 5 seconds
+                    setTimeout(() => {
+                        btnText.textContent = 'Send Message';
+                        submitBtn.disabled = false;
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btnText.textContent = 'Send Message';
+                submitBtn.disabled = false;
+                formStatus.className = 'form-status error';
+                formStatus.textContent = '✗ Failed. Please email me at davidgouldproduct@gmail.com';
+            }
         });
     }
 });
