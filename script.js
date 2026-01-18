@@ -41,20 +41,6 @@ if (mobileMenuToggle && navMenu) {
     });
 }
 
-// Intersection Observer for fade-in animations (defined before DOMContentLoaded)
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const fadeInObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-visible');
-        }
-    });
-}, observerOptions);
-
 // All DOMContentLoaded code in ONE block
 document.addEventListener('DOMContentLoaded', () => {
     // Display last updated timestamp
@@ -155,16 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         });
     }
-
-    // Animate elements
-    const animatedElements = document.querySelectorAll(
-        '.metric, .exp-item, .work-card, .achievement, .patent'
-    );
-    
-    animatedElements.forEach((el) => {
-        el.classList.add('fade-in-element');
-        fadeInObserver.observe(el);
-    });
 });
 
 // Navbar background on scroll
