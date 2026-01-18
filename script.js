@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     body: JSON.stringify({
-                        access_key: '4e3e7c8f-3c4a-4f4d-8e3a-9c8d7f6e5a4b', // Replace with your Web3Forms key
+                        access_key: '1e7ba58c-a7b8-475c-b9a9-c971671e7f1b',
                         name: name,
                         email: email,
                         message: message,
