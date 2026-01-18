@@ -41,30 +41,6 @@ if (mobileMenuToggle && navMenu) {
     });
 }
 
-// Section fade effect based on scroll position (continuous)
-function updateSectionOpacity() {
-    const sections = document.querySelectorAll('section');
-    const windowHeight = window.innerHeight;
-    const scrollTop = window.pageYOffset;
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionMiddle = sectionTop + (sectionHeight / 2);
-        
-        // Calculate distance from viewport center
-        const viewportMiddle = scrollTop + (windowHeight / 2);
-        const distance = Math.abs(viewportMiddle - sectionMiddle);
-        
-        // Calculate opacity based on distance (closer = more visible)
-        const maxDistance = windowHeight;
-        let opacity = 1 - (distance / maxDistance);
-        opacity = Math.max(0.3, Math.min(1, opacity)); // Clamp between 0.3 and 1
-        
-        section.style.opacity = opacity;
-    });
-}
-
 // Intersection Observer for fade-in animations (defined before DOMContentLoaded)
 const observerOptions = {
     threshold: 0.1,
@@ -189,19 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('fade-in-element');
         fadeInObserver.observe(el);
     });
-
-    // Initialize section opacity on load
-    updateSectionOpacity();
-
-    // Parallax effect for hero
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * 0.3;
-            hero.style.transform = `translate3d(0, ${rate}px, 0)`;
-        });
-    }
 });
 
 // Navbar background on scroll
@@ -218,9 +181,6 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'rgba(10, 10, 10, 0.8)';
         navbar.style.boxShadow = 'none';
     }
-    
-    // Update section opacity continuously
-    updateSectionOpacity();
     
     lastScroll = currentScroll;
 });
