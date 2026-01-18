@@ -935,6 +935,17 @@ body {
     line-height: 1.6;
 }
 
+.footer-link {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 32px;
