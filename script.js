@@ -56,50 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
     }
 
-    // Contact form submission
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const formStatus = document.getElementById('formStatus');
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Show sending state
-            btnText.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            formStatus.className = 'form-status sending';
-            formStatus.textContent = 'Opening your email client...';
-            
-            // Create mailto link with pre-filled content
-            const subject = encodeURIComponent('Contact from Portfolio Website');
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-            const mailtoLink = `mailto:davidgouldproduct@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Open mailto link
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            setTimeout(() => {
-                btnText.textContent = 'SENT';
-                formStatus.className = 'form-status success';
-                formStatus.textContent = '✓ Email client opened! Please send the email from your email app.';
-                contactForm.reset();
-                
-                // Reset after 5 seconds
-                setTimeout(() => {
-                    btnText.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                    formStatus.style.display = 'none';
-                }, 5000);
-            }, 500);
-        });
-    }
-
     // Resume button dialog
     const resumeBtn = document.getElementById('resumeBtn');
     if (resumeBtn) {
