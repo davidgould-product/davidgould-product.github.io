@@ -170,6 +170,17 @@ body {
     margin-bottom: 32px;
 }
 
+.inline-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.inline-link:hover {
+    border-bottom-color: var(--accent);
+}
+
 .hero-cta {
     display: flex;
     gap: 16px;
