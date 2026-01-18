@@ -1,25 +1,26 @@
-// Smooth scrolling - DISABLED to prevent conflicts
-// document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-//     anchor.addEventListener('click', function (e) {
-//         if (this.closest('form')) return;
-//         e.preventDefault();
-//         const target = document.querySelector(this.getAttribute('href'));
-//         if (target) {
-//             const offset = 80;
-//             const targetPosition = target.offsetTop - offset;
-//             window.scrollTo({
-//                 top: targetPosition,
-//                 behavior: 'smooth'
-//             });
-//             const navMenu = document.querySelector('.nav-menu');
-//             const menuToggle = document.querySelector('.mobile-menu-toggle');
-//             if (navMenu && menuToggle) {
-//                 navMenu.classList.remove('active');
-//                 menuToggle.classList.remove('active');
-//             }
-//         }
-//     });
-// });
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offset = 80;
+            const targetPosition = target.offsetTop - offset;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+            
+            // Close mobile menu after clicking
+            const navMenu = document.querySelector('.nav-menu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            if (navMenu && menuToggle) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        }
+    });
+});
 
 // Mobile menu toggle
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -113,7 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 
-                if (response.ok) {
+                const result = await response.json();
+                console.log('FormSubmit response:', result);
+                
+                if (response.ok && result.success) {
                     // Success!
                     btnText.textContent = 'SENT ✓';
                     formStatus.className = 'form-status success';
@@ -131,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         formStatus.style.display = 'none';
                     }, 5000);
                 } else {
-                    throw new Error('Failed to send');
+                    throw new Error(result.message || 'Failed to send');
                 }
             } catch (error) {
                 console.error('Error:', error);
