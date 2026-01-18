@@ -153,32 +153,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
-    threshold: 0.05,
-    rootMargin: '0px 0px 50px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const fadeInObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('fade-in-visible');
         }
     });
 }, observerOptions);
 
 // Apply animations on load
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Animate elements
     const animatedElements = document.querySelectorAll(
         '.metric, .exp-item, .work-card, .achievement, .patent'
     );
     
-    console.log('Found elements to animate:', animatedElements.length);
-    
-    animatedElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.3s ease ${index * 0.02}s, transform 0.3s ease ${index * 0.02}s`;
+    animatedElements.forEach((el) => {
+        el.classList.add('fade-in-element');
         fadeInObserver.observe(el);
     });
 
