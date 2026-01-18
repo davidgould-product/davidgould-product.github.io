@@ -75,17 +75,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Contact form submission - MUST preventDefault to stay on page
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // CRITICAL: Stop form from submitting normally
-            e.stopPropagation(); // CRITICAL: Stop event from bubbling up
+    // Contact form - use BUTTON CLICK not form submit to avoid ALL default behavior
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             
-            const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const formStatus = document.getElementById('formStatus');
-            const formData = new FormData(contactForm);
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            // Validate
+            if (!name || !email || !message) {
+                formStatus.className = 'form-status error';
+                formStatus.textContent = '✗ Please fill all fields';
+                return false;
+            }
             
             // Show sending state
             btnText.textContent = 'Sending...';
@@ -94,6 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.textContent = 'Sending your message...';
             
             try {
+                // Create FormData
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('message', message);
+                
                 // Submit to FormSubmit via AJAX
                 const response = await fetch('https://formsubmit.co/davidgouldproduct@gmail.com', {
                     method: 'POST',
@@ -108,7 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     btnText.textContent = 'SENT ✓';
                     formStatus.className = 'form-status success';
                     formStatus.textContent = '✓ Message sent! I\'ll get back to you soon.';
-                    contactForm.reset();
+                    
+                    // Clear fields
+                    document.getElementById('contactName').value = '';
+                    document.getElementById('contactEmail').value = '';
+                    document.getElementById('contactMessage').value = '';
                     
                     // Reset after 5 seconds
                     setTimeout(() => {
@@ -127,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formStatus.textContent = '✗ Failed. Please email me at davidgouldproduct@gmail.com';
             }
             
-            return false; // Extra safety to prevent form submission
+            return false;
         });
     }
 });
