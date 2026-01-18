@@ -98,22 +98,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Send via fetch to Web3Forms
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({
                         access_key: '1e7ba58c-a7b8-475c-b9a9-c971671e7f1b',
-                        name: name,
-                        email: email,
-                        message: message,
                         subject: 'Gould Website - New Contact Message',
-                        from_name: 'David Gould Portfolio',
-                        to: 'davidgouldproduct@gmail.com'
-                    }),
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
+                        from_name: name,
+                        email: email,
+                        message: message
+                    })
                 });
                 
-                if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success) {
                     // Success!
                     btnText.textContent = 'SENT ✓';
                     formStatus.className = 'form-status success';
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         formStatus.style.display = 'none';
                     }, 5000);
                 } else {
-                    throw new Error('Form submission failed');
+                    throw new Error(result.message || 'Form submission failed');
                 }
             } catch (error) {
                 // Error handling
