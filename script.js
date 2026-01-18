@@ -41,6 +41,22 @@ if (mobileMenuToggle && navMenu) {
     });
 }
 
+// Intersection Observer for section blending (separate from element animations)
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.remove('section-fade');
+            entry.target.classList.add('section-visible');
+        } else {
+            entry.target.classList.add('section-fade');
+            entry.target.classList.remove('section-visible');
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px'
+});
+
 // Intersection Observer for fade-in animations (defined before DOMContentLoaded)
 const observerOptions = {
     threshold: 0.1,
@@ -164,6 +180,12 @@ document.addEventListener('DOMContentLoaded', () => {
     animatedElements.forEach((el) => {
         el.classList.add('fade-in-element');
         fadeInObserver.observe(el);
+    });
+
+    // Observe sections for blending effect
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section) => {
+        sectionObserver.observe(section);
     });
 
     // Parallax effect for hero

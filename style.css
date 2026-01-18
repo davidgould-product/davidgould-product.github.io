@@ -34,6 +34,22 @@ html {
     transform: translateY(0) !important;
 }
 
+/* Section blend animation on scroll */
+section {
+    position: relative;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+section.section-fade {
+    opacity: 0.3;
+    transform: translateY(50px);
+}
+
+section.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg-primary);
@@ -119,7 +135,7 @@ body {
 .hero {
     padding: 180px 24px 120px;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     background: var(--bg-primary);
 }
 
@@ -410,7 +426,7 @@ body {
 .experience {
     padding: 100px 24px;
     position: relative;
-    z-index: 2;
+    z-index: 8;
     background: var(--bg-primary);
 }
 
@@ -518,7 +534,7 @@ body {
     padding: 100px 24px;
     background: var(--bg-secondary);
     position: relative;
-    z-index: 2;
+    z-index: 6;
 }
 
 .work-grid {
@@ -788,7 +804,7 @@ body {
     padding: 100px 24px;
     background: var(--bg-secondary);
     position: relative;
-    z-index: 2;
+    z-index: 4;
 }
 
 .contact-content {
