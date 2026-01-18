@@ -41,8 +41,23 @@ if (mobileMenuToggle && navMenu) {
     });
 }
 
-// Display last updated timestamp
+// Intersection Observer for fade-in animations (defined before DOMContentLoaded)
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+        }
+    });
+}, observerOptions);
+
+// All DOMContentLoaded code in ONE block
 document.addEventListener('DOMContentLoaded', () => {
+    // Display last updated timestamp
     const lastUpdatedElement = document.getElementById('lastUpdated');
     if (lastUpdatedElement) {
         const now = new Date();
@@ -57,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
     }
 
-    // Resume button dialogs (both in Experience section and Contact section)
+    // Resume button dialogs
     const resumeBtn = document.getElementById('resumeBtn');
     const resumeBtn2 = document.getElementById('resumeBtn2');
     
@@ -73,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Contact form - use BUTTON CLICK not form submit to avoid ALL default behavior
+    // Contact form
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
         submitBtn.addEventListener('click', async (e) => {
@@ -86,27 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('contactEmail').value;
             const message = document.getElementById('contactMessage').value;
             
-            // Validate
             if (!name || !email || !message) {
                 formStatus.className = 'form-status error';
                 formStatus.textContent = '✗ Please fill all fields';
                 return false;
             }
             
-            // Show sending state
             btnText.textContent = 'Sending...';
             submitBtn.disabled = true;
             formStatus.className = 'form-status sending';
             formStatus.textContent = 'Sending your message...';
             
             try {
-                // Create FormData
                 const formData = new FormData();
                 formData.append('name', name);
                 formData.append('email', email);
                 formData.append('message', message);
                 
-                // Submit to FormSubmit via AJAX
                 const response = await fetch('https://formsubmit.co/davidgouldproduct@gmail.com', {
                     method: 'POST',
                     body: formData,
@@ -116,20 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 const result = await response.json();
-                console.log('FormSubmit response:', result);
                 
                 if (response.ok && result.success) {
-                    // Success!
                     btnText.textContent = 'SENT ✓';
                     formStatus.className = 'form-status success';
                     formStatus.textContent = '✓ Message sent! I\'ll get back to you soon.';
                     
-                    // Clear fields
                     document.getElementById('contactName').value = '';
                     document.getElementById('contactEmail').value = '';
                     document.getElementById('contactMessage').value = '';
                     
-                    // Reset after 5 seconds
                     setTimeout(() => {
                         btnText.textContent = 'Send Message';
                         submitBtn.disabled = false;
@@ -149,24 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         });
     }
-});
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const fadeInObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-visible');
-        }
-    });
-}, observerOptions);
-
-// Apply animations on load
-document.addEventListener('DOMContentLoaded', () => {
     // Animate elements
     const animatedElements = document.querySelectorAll(
         '.metric, .exp-item, .work-card, .achievement, .patent'
