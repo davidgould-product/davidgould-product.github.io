@@ -126,9 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 
-                const result = await response.json();
-                
-                if (response.ok && result.success) {
+                // FormSubmit returns 200 even for first-time verification
+                // Just check if response is ok
+                if (response.ok) {
                     btnText.textContent = 'SENT ✓';
                     formStatus.className = 'form-status success';
                     formStatus.textContent = '✓ Message sent! I\'ll get back to you soon.';
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         formStatus.style.display = 'none';
                     }, 5000);
                 } else {
-                    throw new Error(result.message || 'Failed to send');
+                    throw new Error('Failed to send');
                 }
             } catch (error) {
                 console.error('Error:', error);
