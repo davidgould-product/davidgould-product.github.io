@@ -117,10 +117,10 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 100px 24px 80px;
+    padding: 180px 24px 120px;
     position: relative;
     z-index: 10;
-    background: var(--bg-primary);
+    background: rgba(10, 10, 10, 0.85);
 }
 
 .hero .container {
