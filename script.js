@@ -43,8 +43,8 @@ if (mobileMenuToggle && navMenu) {
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px 50px 0px'
 };
 
 const fadeInObserver = new IntersectionObserver((entries) => {
@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
     animatedElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+        el.style.transition = `opacity 0.3s ease ${index * 0.02}s, transform 0.3s ease ${index * 0.02}s`;
         fadeInObserver.observe(el);
     });
 
