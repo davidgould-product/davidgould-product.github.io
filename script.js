@@ -1,6 +1,9 @@
-// Smooth scrolling
+// Smooth scrolling for navigation links only (not forms)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        // Only handle anchor links, not inside forms
+        if (this.closest('form')) return;
+        
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -72,11 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Contact form submission - AJAX to stay on page and show SENT
+    // Contact form submission - MUST preventDefault to stay on page
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent redirect
+            e.preventDefault(); // CRITICAL: Stop form from submitting normally
+            e.stopPropagation(); // CRITICAL: Stop event from bubbling up
             
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
@@ -122,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 formStatus.className = 'form-status error';
                 formStatus.textContent = '✗ Failed. Please email me at davidgouldproduct@gmail.com';
             }
+            
+            return false; // Extra safety to prevent form submission
         });
     }
 });
