@@ -41,19 +41,21 @@ document.addEventListener('click', (e) => {
 });
 
 // Display last updated timestamp
-const lastUpdatedElement = document.getElementById('lastUpdated');
-if (lastUpdatedElement) {
-    const now = new Date();
-    const options = { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit',
-        timeZoneName: 'short'
-    };
-    lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const lastUpdatedElement = document.getElementById('lastUpdated');
+    if (lastUpdatedElement) {
+        const now = new Date();
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            timeZoneName: 'short'
+        };
+        lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
+    }
+});
 }
 
 // Intersection Observer for fade-in animations
