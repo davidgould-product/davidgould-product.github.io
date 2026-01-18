@@ -312,7 +312,41 @@ body {
     font-size: 40px;
     font-weight: 700;
     letter-spacing: -1px;
+    margin-bottom: 16px;
+}
+
+.section-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
     margin-bottom: 12px;
+}
+
+.section-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.section-btn:hover {
+    background: var(--bg-card);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.section-btn svg {
+    opacity: 0.7;
 }
 
 .section-subtitle {

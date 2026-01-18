@@ -117,6 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Resume button dialog
+    const resumeBtn = document.getElementById('resumeBtn');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+            alert('Please contact me for my resume. Thank you!');
+        });
+    }
 });
 }
 
