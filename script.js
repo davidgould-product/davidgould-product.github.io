@@ -33,12 +33,13 @@ if (mobileMenuToggle && navMenu) {
     });
     
     // Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-container')) {
-        navMenu.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
-    }
-});
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-container')) {
+            navMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+        }
+    });
+}
 
 // Display last updated timestamp
 document.addEventListener('DOMContentLoaded', () => {
