@@ -117,18 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.append('name', name);
                 formData.append('email', email);
                 formData.append('message', message);
+                formData.append('access_key', '1e7ba58c-a7b8-475c-b9a9-c971671e7f1b');
+                formData.append('subject', 'Gould Website - New Contact Message');
                 
-                const response = await fetch('https://formsubmit.co/davidgouldproduct@gmail.com', {
+                const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    body: formData
                 });
                 
-                // FormSubmit returns 200 even for first-time verification
-                // Just check if response is ok
-                if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success) {
                     btnText.textContent = 'SENT ✓';
                     formStatus.className = 'form-status success';
                     formStatus.textContent = '✓ Message sent! I\'ll get back to you soon.';
@@ -143,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         formStatus.style.display = 'none';
                     }, 5000);
                 } else {
-                    throw new Error('Failed to send');
+                    throw new Error(result.message || 'Failed to send');
                 }
             } catch (error) {
                 console.error('Error:', error);
