@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-}
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
