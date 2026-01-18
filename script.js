@@ -1,29 +1,25 @@
-// Smooth scrolling for navigation links only (not forms)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        // Only handle anchor links, not inside forms
-        if (this.closest('form')) return;
-        
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offset = 80;
-            const targetPosition = target.offsetTop - offset;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-            
-            // Close mobile menu after clicking
-            const navMenu = document.querySelector('.nav-menu');
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            if (navMenu && menuToggle) {
-                navMenu.classList.remove('active');
-                menuToggle.classList.remove('active');
-            }
-        }
-    });
-});
+// Smooth scrolling - DISABLED to prevent conflicts
+// document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+//     anchor.addEventListener('click', function (e) {
+//         if (this.closest('form')) return;
+//         e.preventDefault();
+//         const target = document.querySelector(this.getAttribute('href'));
+//         if (target) {
+//             const offset = 80;
+//             const targetPosition = target.offsetTop - offset;
+//             window.scrollTo({
+//                 top: targetPosition,
+//                 behavior: 'smooth'
+//             });
+//             const navMenu = document.querySelector('.nav-menu');
+//             const menuToggle = document.querySelector('.mobile-menu-toggle');
+//             if (navMenu && menuToggle) {
+//                 navMenu.classList.remove('active');
+//                 menuToggle.classList.remove('active');
+//             }
+//         }
+//     });
+// });
 
 // Mobile menu toggle
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
