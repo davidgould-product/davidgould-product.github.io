@@ -34,20 +34,10 @@ html {
     transform: translateY(0) !important;
 }
 
-/* Section blend animation on scroll */
+/* Section blend animation - continuous opacity changes via JS */
 section {
     position: relative;
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-section.section-fade {
-    opacity: 0.3;
-    transform: translateY(50px);
-}
-
-section.section-visible {
-    opacity: 1;
-    transform: translateY(0);
+    transition: opacity 0.5s ease-out;
 }
 
 body {
