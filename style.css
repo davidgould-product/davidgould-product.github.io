@@ -802,6 +802,13 @@ body {
     color: var(--text-muted);
 }
 
+.last-updated {
+    font-size: 11px !important;
+    color: #666666 !important;
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .metrics-grid {

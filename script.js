@@ -33,12 +33,27 @@ if (mobileMenuToggle && navMenu) {
     });
     
     // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-container')) {
-            navMenu.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-        }
-    });
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-container')) {
+        navMenu.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
+    }
+});
+
+// Display last updated timestamp
+const lastUpdatedElement = document.getElementById('lastUpdated');
+if (lastUpdatedElement) {
+    const now = new Date();
+    const options = { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit',
+        timeZoneName: 'short'
+    };
+    lastUpdatedElement.textContent = now.toLocaleString('en-US', options);
+}
 }
 
 // Intersection Observer for fade-in animations
