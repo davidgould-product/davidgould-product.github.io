@@ -95,14 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const email = formData.get('email');
                 const message = formData.get('message');
                 
-                // Send via fetch to Formspree
-                const response = await fetch('https://formspree.io/f/xbljddap', {
+                // Send via fetch to Web3Forms
+                const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     body: JSON.stringify({
+                        access_key: '4e3e7c8f-3c4a-4f4d-8e3a-9c8d7f6e5a4b', // Replace with your Web3Forms key
                         name: name,
                         email: email,
                         message: message,
-                        _subject: 'Gould Website - New Contact Message'
+                        subject: 'Gould Website - New Contact Message',
+                        from_name: 'David Gould Portfolio',
+                        to: 'davidgouldproduct@gmail.com'
                     }),
                     headers: {
                         'Accept': 'application/json',
