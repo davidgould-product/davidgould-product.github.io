@@ -447,14 +447,14 @@
                     <p>Interested in discussing product leadership opportunities, thought leadership collaborations, or strategic partnerships?</p>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" action="https://formsubmit.co/davidgouldproduct@gmail.com" method="POST">
-                        <input type="hidden" name="_subject" value="New contact from davidgould-product.github.io">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://davidgould-product.github.io/#contact">
+                    <form class="contact-form" id="contactForm">
                         <input type="text" name="name" id="name" placeholder="Your Name" required>
                         <input type="email" name="email" id="email" placeholder="Your Email" required>
                         <textarea name="message" id="message" rows="4" placeholder="Your Message" required></textarea>
-                        <button type="submit" class="btn-primary" id="submitBtn">Send Message</button>
+                        <button type="submit" class="btn-primary" id="submitBtn">
+                            <span id="btnText">Send Message</span>
+                        </button>
+                        <div id="formStatus" class="form-status"></div>
                     </form>
                     <div class="contact-links">
                         <a href="https://www.linkedin.com/in/davidgould/" target="_blank">LinkedIn →</a>

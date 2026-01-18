@@ -63,6 +63,71 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Please contact me for my resume. Thank you!');
         });
     }
+
+    // Contact form submission with AJAX
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const formStatus = document.getElementById('formStatus');
+            const formData = new FormData(contactForm);
+            
+            // Show sending state
+            btnText.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            formStatus.className = 'form-status sending';
+            formStatus.textContent = 'Sending your message...';
+            
+            try {
+                // Prepare email data
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const message = formData.get('message');
+                
+                // Send via fetch to Formspree
+                const response = await fetch('https://formspree.io/f/xbljddap', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message,
+                        _subject: 'Gould Website - New Contact Message'
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success!
+                    btnText.textContent = 'SENT ✓';
+                    formStatus.className = 'form-status success';
+                    formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                    contactForm.reset();
+                    
+                    // Reset button after 5 seconds
+                    setTimeout(() => {
+                        btnText.textContent = 'Send Message';
+                        submitBtn.disabled = false;
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Error handling
+                console.error('Form submission error:', error);
+                btnText.textContent = 'Send Message';
+                submitBtn.disabled = false;
+                formStatus.className = 'form-status error';
+                formStatus.textContent = '✗ Failed to send. Please email me directly at davidgouldproduct@gmail.com';
+            }
+        });
+    }
 });
 }
 
@@ -124,22 +189,7 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Form submission enhancement
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        const button = contactForm.querySelector('button[type="submit"]');
-        const originalText = button.textContent;
-        button.textContent = 'Sending...';
-        button.disabled = true;
-        
-        // Reset after 3 seconds (if using Formspree, this gives time for redirect)
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.disabled = false;
-        }, 3000);
-    });
-}
+// Removed duplicate form handler - now handled in DOMContentLoaded above
 
 // Add smooth hover effects to work cards
 const workCards = document.querySelectorAll('.work-card');
