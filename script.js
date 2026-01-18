@@ -72,71 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Contact form submission with AJAX
+    // Contact form submission - show sending/sent state
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
+        contactForm.addEventListener('submit', (e) => {
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const formStatus = document.getElementById('formStatus');
-            const formData = new FormData(contactForm);
             
             // Show sending state
             btnText.textContent = 'Sending...';
             submitBtn.disabled = true;
             formStatus.className = 'form-status sending';
-            formStatus.textContent = 'Sending your message...';
+            formStatus.textContent = 'Redirecting...';
             
-            try {
-                // Prepare email data
-                const name = formData.get('name');
-                const email = formData.get('email');
-                const message = formData.get('message');
-                
-                // Send via fetch to Web3Forms
-                const response = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        access_key: '1e7ba58c-a7b8-475c-b9a9-c971671e7f1b',
-                        subject: 'Gould Website - New Contact Message',
-                        from_name: name,
-                        email: email,
-                        message: message
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Success!
-                    btnText.textContent = 'SENT ✓';
-                    formStatus.className = 'form-status success';
-                    formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
-                    contactForm.reset();
-                    
-                    // Reset button after 5 seconds
-                    setTimeout(() => {
-                        btnText.textContent = 'Send Message';
-                        submitBtn.disabled = false;
-                        formStatus.style.display = 'none';
-                    }, 5000);
-                } else {
-                    throw new Error(result.message || 'Form submission failed');
-                }
-            } catch (error) {
-                // Error handling
-                console.error('Form submission error:', error);
-                btnText.textContent = 'Send Message';
-                submitBtn.disabled = false;
-                formStatus.className = 'form-status error';
-                formStatus.textContent = '✗ Failed to send. Please email me directly at davidgouldproduct@gmail.com';
-            }
+            // Form will submit normally to FormSubmit
         });
     }
 });
