@@ -43,10 +43,10 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(10, 10, 10, 0.8);
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .nav-container {
@@ -105,7 +105,9 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 180px 24px 100px;
+    padding: 180px 24px 120px;
+    position: relative;
+    z-index: 1;
 }
 
 .hero .container {
@@ -214,6 +216,9 @@ body {
 .metrics {
     padding: 80px 24px 40px;
     border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+    background: var(--bg-primary);
 }
 
 .metrics-grid {
@@ -256,6 +261,9 @@ body {
 .known-for {
     padding: 60px 24px 80px;
     border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+    background: var(--bg-primary);
 }
 
 .known-title {
@@ -316,6 +324,9 @@ body {
 /* Experience Section */
 .experience {
     padding: 100px 24px;
+    position: relative;
+    z-index: 2;
+    background: var(--bg-primary);
 }
 
 .experience-list {
