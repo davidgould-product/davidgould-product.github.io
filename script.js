@@ -173,6 +173,8 @@ window.addEventListener('DOMContentLoaded', () => {
         '.metric, .exp-item, .work-card, .achievement, .patent'
     );
     
+    console.log('Found elements to animate:', animatedElements.length);
+    
     animatedElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
